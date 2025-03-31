@@ -79,7 +79,13 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
    php artisan db:seed
    ```
 
-8. Inicie o servidor da aplicação:
+8. Gere a secret key:
+
+   ```bash
+   php artisan jwt:secret
+   ```
+
+9. Inicie o servidor da aplicação:
 
    ```bash
    php artisan serve
