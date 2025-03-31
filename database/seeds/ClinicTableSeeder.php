@@ -16,10 +16,29 @@ class ClinicTableSeeder extends Seeder
     {
         $regionals = DB::table('regionals')->inRandomOrder()->limit(5)->pluck('id');
 
-   
-        $Specialty1 = Specialty::create(['name' => 'Cardiologia']);
-        $Specialty2 = Specialty::create(['name' => 'Dermatologia']);
-        $Specialty3 = Specialty::create(['name' => 'Ortopedia']);
+        // Criando 20 especialidades médicas
+        $specialties = [
+            Specialty::create(['name' => 'Cardiologia']),
+            Specialty::create(['name' => 'Dermatologia']),
+            Specialty::create(['name' => 'Ortopedia']),
+            Specialty::create(['name' => 'Pediatria']),
+            Specialty::create(['name' => 'Ginecologia']),
+            Specialty::create(['name' => 'Obstetrícia']),
+            Specialty::create(['name' => 'Neurologia']),
+            Specialty::create(['name' => 'Oftalmologia']),
+            Specialty::create(['name' => 'Otorrinolaringologia']),
+            Specialty::create(['name' => 'Endocrinologia']),
+           /*  Specialty::create(['name' => 'Gastroenterologia']),
+            Specialty::create(['name' => 'Urologia']),
+            Specialty::create(['name' => 'Oncologia']),
+            Specialty::create(['name' => 'Psiquiatria']),
+            Specialty::create(['name' => 'Reumatologia']),
+            Specialty::create(['name' => 'Hematologia']),
+            Specialty::create(['name' => 'Nefrologia']),
+            Specialty::create(['name' => 'Pneumologia']),
+            Specialty::create(['name' => 'Infectologia']),
+            Specialty::create(['name' => 'Alergologia']), */
+        ];
 
         // Criando Clínicas
         $clinics = [
@@ -68,11 +87,12 @@ class ClinicTableSeeder extends Seeder
         foreach ($clinics as $dados) {
             $clinica = Clinic::create($dados);
 
-            $clinica->specialties()->attach([
-                $Specialty1->id,
-                $Specialty2->id,
-                $Specialty3->id
-            ]);
+            $randomSpecialties = collect($specialties)
+                ->random(rand(5, 10))
+                ->pluck('id')
+                ->toArray();
+
+            $clinica->specialties()->attach($randomSpecialties);
         }
     }
 }
